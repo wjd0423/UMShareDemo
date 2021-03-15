@@ -7,7 +7,7 @@
 //
 
 #import "AppDelegate.h"
-
+#import "EEOUMApiProxy.h"
 @interface AppDelegate ()
 
 @end
@@ -17,6 +17,10 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
+    
+    [EEOUMApiProxy registerUMSetting];
+    [EEOUMApiProxy registerUSharePlatforms];
+    
     return YES;
 }
 
@@ -47,5 +51,12 @@
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
 }
 
+- (BOOL)application:(UIApplication *)app openURL:(NSURL *)url options:(NSDictionary<NSString*, id> *)options {
+    NSLog(@"%s,url:%@",__func__,url);
+    
+    BOOL result = [EEOUMApiProxy handleOpenURL:url options:options];
+    
+    return YES;
+}
 
 @end
